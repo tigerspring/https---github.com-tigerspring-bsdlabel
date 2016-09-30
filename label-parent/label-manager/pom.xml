@@ -43,6 +43,10 @@
 		<groupId>${project.parent.groupId}</groupId>
 		<artifactId>label-module</artifactId>
 	</dependency>
+	<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>servlet-api</artifactId>
+	</dependency>
   </dependencies>
   
   <build>
