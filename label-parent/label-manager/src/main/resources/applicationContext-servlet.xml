@@ -13,7 +13,7 @@
      
      
 	<mvc:annotation-driven/>
-	<context:component-scan base-package="org.bsd.label.manager.controller"/>
+	<context:component-scan base-package="org.bsd.label.manager"/>
 	
 	<!-- 设置springMVC的页面跳转指向 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
