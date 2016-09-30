@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/data/jpa
+     						http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+							http://www.springframework.org/schema/tx
+     						http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 数据库连接池设置 -->						
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">	
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${db.connection.mysql.url}" />
+		<property name="username" value="${db.connection.username}" />
+		<property name="password" value="${db.connection.password}" />
+		<property name="maxActive" value="${db.pool.maxsize}" />
+		<!-- 最大空闲值，当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接释放，一直减少到msxIdle为止 -->
+		<property name="maxIdle" value="${db.pool.maxIdle}" />
+		<!-- 最小空闲值，当空闲的连接数小于阀值时，连接池就会预申请一些连接，以免洪峰到来时来不及申请 -->
+		<property name="minIdle" value="${db.pool.minIdle}" />
+		<!-- pool池中的链接如果未被使用，可以通过testWhileIdle进行链接检查，避免在使用时后总要失败那么一次，可以及时预防 -->
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+		<property name="minEvictableIdleTimeMillis" value="10000" />
+		<property name="validationQuery" value="${db.pool.validationQuery}" />
+		<property name="defaultAutoCommit" value="false" />
+		
+  	</bean>
+  	
+  	
+  	<!-- 数据库方言设置 -->
+  	<!-- 
+  		org.springframework.beans.factory.config.FieldRetrievingFactoryBean是spring提供的一种获取获取类里的静态变量方法类
+  		下面的bean的意义为获取org.springframework.orm.jpa.vendor.Database中的枚举常量MYSQL
+  		mysqlDialect指向了org.springframework.orm.jpa.vendor.Database.MYSQL这个枚举常量
+  	 -->
+  	<bean id="mysqlDialect" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField" value="org.springframework.orm.jpa.vendor.Database.MYSQL" />
+	</bean>
+	
+	
+  	<!-- JPA配置 -->
+  	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="SpringJpa"/>
+        <property name="packagesToScan" value="org.bsd.label.domain"/>
+        <property name="jpaVendorAdapter">
+        	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        		<property name="showSql" value="${jpa.showSql}" />
+				<property name="generateDdl" value="${jpa.generateDdl}" />
+				<property name="database" ref="mysqlDialect" />
+        	</bean>
+        </property>
+        <!-- 表名和字段名映射自动以下划线分隔 -->
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+			</props>
+		</property>
+    </bean>
+    
+    
+    <jpa:repositories base-package="org.bsd.label.repository"></jpa:repositories>
+    
+    <!-- 配置jpa事务 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    
+</beans>
