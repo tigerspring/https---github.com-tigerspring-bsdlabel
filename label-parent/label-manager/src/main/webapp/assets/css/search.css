@@ -1,0 +1,29 @@
+.compileSearch {
+  height: 200px;
+  width: 100%;
+  padding: 5px;
+}
+.myCondition {
+  border: 1px solid #CCCCCC;
+  height: 50px;
+  margin: 0;
+}
+.searchTb {
+  margin: 0;
+}
+.searchBtn {
+  float: right;
+  margin-right: 20px;
+  margin-top: 7px;
+}
+.form-group {
+  height: 40px;
+  line-height: 45px;
+}
+.form-group label {
+  font-size: 13px;
+  margin-left: 15px;
+}
+.pagination {
+  float: right;
+}

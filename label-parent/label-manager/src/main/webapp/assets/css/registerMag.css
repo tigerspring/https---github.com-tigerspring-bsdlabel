@@ -1,0 +1,48 @@
+.registerAdd {
+  height: 200px;
+  width: 100%;
+  padding: 5px;
+}
+.myRegister {
+  border: 1px solid #CCCCCC;
+  height: 50px;
+  margin: 0;
+}
+.addBtn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.addBtn,
+.importBtn {
+  margin-top: 7px;
+}
+.opeBtn {
+  margin-right: 5px;
+}
+#labelImportModal modal-dialog {
+  height: 300px;
+}
+.myImportForm {
+  height: 100px;
+}
+.myImportForm #importInput {
+  margin-top: 40px;
+  margin-left: 10px;
+}
+.del {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.del:hover {
+  background-color: #b74635;
+  border-color: #d15b47;
+}
+.chg {
+  background-color: #337ab7;
+}
+/* .pagination{
+	width:100%;
+} */
+/* .current.prev{
+	margin-left:75%;
+} */

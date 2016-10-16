@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class App extends AbstractPersistable<Integer>
+public class App extends AbstractPersistable<Long>
 {
 	/**
 	 * 

@@ -13,6 +13,12 @@
      
      
 	<mvc:annotation-driven/>
+		
+	<!-- 指定静态资源路径 -->
+	<mvc:resources location="/assets/" mapping="/assets/**" />
+	
+	<mvc:view-controller path="/" view-name="redirect:/login" />
+	
 	<context:component-scan base-package="org.bsd.label.manager"/>
 	
 	<!-- 设置springMVC的页面跳转指向 -->
@@ -24,4 +30,12 @@
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- one of the properties available; the maximum file size in bytes -->
+	    <property name="maxUploadSize" value="100000"/>
+	    <property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+     
 </beans>
