@@ -9,7 +9,7 @@ public class BaseAbstractController{
 	
 	public final static Integer DEFAULT_PAGE_SIZE = 10;
 
-	@Autowired
+	@Autowired 
 	protected HttpServletRequest request;
 	@Autowired
 	protected HttpServletResponse response;
